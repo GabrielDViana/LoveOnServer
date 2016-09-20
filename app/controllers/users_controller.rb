@@ -4,6 +4,9 @@ class UsersController < ApplicationController
 
   def create
     user = User.new(user_params)
+    if params[:birthday]
+      user.birthday = Date.strptime(params[:birthday], '%m/%d/%Y')
+    end
     if user.save
       render json: user
     else
