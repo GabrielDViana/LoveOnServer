@@ -37,8 +37,8 @@ class User < ActiveRecord::Base
   has_many :reports
 
   validates   :password,
-                :on => :create,
-                presence: true
+              :on => :create,
+              presence: true
 
   validates   :id_social,
               :on => :create,
@@ -111,9 +111,10 @@ class User < ActiveRecord::Base
     save!(:validate => false)
   end
 
-  def age
+  def set_age
     if self.birthday
       self.age = (Date.today - self.birthday).to_i / 365
+      save!(:validate => false)
     end
   end
 # Gerador de chaves
