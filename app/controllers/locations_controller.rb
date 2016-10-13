@@ -17,6 +17,9 @@ class LocationsController < ApplicationController
     user.block_one.each { |t|
       blocked_ids << t.user_two_id
     }
+    user.block_two.each { |t|
+      blocked_ids << t.user_one_id
+    }
     if user.search_male==true && user.search_female==false
 
       location = Location.includes(:users).where('users.gender = ?', 'male')

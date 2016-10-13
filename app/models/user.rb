@@ -42,6 +42,7 @@ class User < ActiveRecord::Base
 
   validates   :id_social,
               :on => :create,
+              presence: true,
               uniqueness: true
 
 
