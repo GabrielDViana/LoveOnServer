@@ -2,6 +2,8 @@ class CheckinController < ApplicationController
 
   def create
     current_user = User.find_by_token(params[:user_token])
+    current_user.touch
+    current_user.stay_online
     checkin = Checkin.create
     place = Place.create
     place.user = current_user

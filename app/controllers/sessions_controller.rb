@@ -18,6 +18,8 @@ class SessionsController < ApplicationController
       # current_user.following.includes(:following).where.not(following: { id: [blocked_ids]})
       # current_user.followers.includes(:followers).where.not(followers: { id: [blocked_ids]})
       current_user.stay_online
+      current_user.touch
+      
       render :json => current_user, :include =>[:locations, :location, :followers, :following],
         :methods => [:matches, :matches_token, :age, :interactions_one, :blocks, :user_follows, :follow_user]
     else

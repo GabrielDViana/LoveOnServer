@@ -15,6 +15,19 @@ class Location < ActiveRecord::Base
     end while User.exists?(column => self[column])
   end
 
+  def verify_users
+    users = self.users
+
+    users.each { |user|
+        if user.updated_at < 20.minutes.ago
+          self.users.delete(user)
+        end
+        if user.updated_at < 3.minutes.ago
+          user.stay_offline
+        end
+    }
+  end
+
   def male_users(age)
     self.users.where(:gender => 'male').where(["age <= ?", age])
   end

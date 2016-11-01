@@ -18,6 +18,10 @@ class UsersController < ApplicationController
     matched = current_user.matched?(user)
     blocked = current_user.blocked?(user)
 
+    if user.updated_at < 5.minutes.ago
+      user.stay_offline
+    end
+
     render :json => {
       :user => user,:locations => user.locations,
       :is_following => is_following, :matched => matched,

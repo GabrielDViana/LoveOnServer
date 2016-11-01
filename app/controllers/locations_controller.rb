@@ -2,7 +2,7 @@ class LocationsController < ApplicationController
 
   def index
     origin = Geokit::LatLng.new(params[:latitude],params[:longitude])
-    locations = Location.within(3.5, :origin => origin)
+    locations = Location.within(10, :origin => origin)
     render :json => locations
   end
 
@@ -27,6 +27,7 @@ class LocationsController < ApplicationController
         .where.not(users: { id: user.id })
         .where.not(users: { id: [blocked_ids]})
 
+      location.first.verify_users
       render :json => location.first, :include => [:users]
     elsif user.search_male==false && user.search_female==true
 
@@ -35,6 +36,7 @@ class LocationsController < ApplicationController
         .where.not(users: { id: user.id })
         .where.not(users: { id: [blocked_ids]})
 
+      location.first.verify_users
       render :json => location.first, :include => [:users]
     else
 
@@ -43,6 +45,7 @@ class LocationsController < ApplicationController
         .where.not(users: { id: user.id })
         .where.not(users: { id: [blocked_ids]})
 
+      location.first.verify_users
       render :json => location.first, :include => [:users]
     end
   end
