@@ -2,7 +2,7 @@ class LocationsController < ApplicationController
 
   def index
     origin = Geokit::LatLng.new(params[:latitude],params[:longitude])
-    locations = Location.within(10, :origin => origin)
+    locations = Location.within(3.5, :origin => origin)
     render :json => locations
   end
 
