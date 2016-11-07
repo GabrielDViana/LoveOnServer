@@ -27,8 +27,7 @@ class LocationsController < ApplicationController
         .where.not(users: { id: user.id })
         .where.not(users: { id: [blocked_ids]})
 
-      location.first.verify_users
-      render :json => location.first, :include => [:users]
+      render :json => location.first, :include => [:users], :methods => [:verify_users]
     elsif user.search_male==false && user.search_female==true
 
       location = Location.includes(:users).where('users.gender = ?', 'female')
@@ -36,8 +35,7 @@ class LocationsController < ApplicationController
         .where.not(users: { id: user.id })
         .where.not(users: { id: [blocked_ids]})
 
-      location.first.verify_users
-      render :json => location.first, :include => [:users]
+      render :json => location.first, :include => [:users], :methods => [:verify_users]
     else
 
       location = Location.includes(:users)
@@ -45,8 +43,7 @@ class LocationsController < ApplicationController
         .where.not(users: { id: user.id })
         .where.not(users: { id: [blocked_ids]})
 
-      location.first.verify_users
-      render :json => location.first, :include => [:users]
+      render :json => location.first, :include => [:users], :methods => [:verify_users]
     end
   end
 

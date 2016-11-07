@@ -45,7 +45,8 @@ class UsersController < ApplicationController
       user.gallery_will_change!
       if user.update(user_params)
         user.email_activate
-        render json: user
+        render json: user, :include =>[:locations, :location, :followers, :following],
+          :methods => [:matches, :matches_token, :age, :interactions_one, :blocks, :user_follows, :follow_user]
       else
         render json: { error: 'Incorrect credentials' }, status: 401
       end
